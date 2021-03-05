@@ -1,4 +1,5 @@
 import React from "react";
+//import {url} from '../config'
 
 // react-bootstrap components
 import {
@@ -13,7 +14,36 @@ import {
   Col,
 } from "react-bootstrap";
 
+const axios = require('axios').default;
+
+const url = 'http://localhost:8080/api';
+
 function Login() {
+
+  const validateUserData = (id = "111111111" , password = "1111111" ) => {
+
+    axios.get(url + '/users/' + id)
+    .then((data) => {
+      // handling success
+      redirectToMain()
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+
+
+    // axios.get(URL + '/users?id=' +id+ '&password=' + password)
+    // .then((data) => {
+    //   // handling success
+    //   redirectToMain()
+    // })
+    // .catch(function (error) {
+    //   // handle error
+    //   console.log(error);
+    // })
+  }
+
   return (
     <>
       <Container fluid>
@@ -50,7 +80,8 @@ function Login() {
                   <Button
                     className="btn btn-primary btn-block"
                     type="submit"
-                    variant="primary"    
+                    variant="primary"
+                    onClick={() => validateUserData(true)}    
                   >
                     Login
                   </Button>

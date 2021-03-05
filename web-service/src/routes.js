@@ -93,7 +93,7 @@ const dashboardRoutes = [
     name: "Login",
     icon: "nc-icon nc-tablet-2",
     component: Login,
-    layout: "/generic",
+    layout: "/admin",
   },
 ];
 
