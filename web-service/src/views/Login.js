@@ -89,7 +89,7 @@ function Login() {
                   >
                     Login
                   </Button>
-                  <Link to="/generic/signup">Sign Up</Link>
+                  <Link to="/views/signup">Sign Up</Link>
                   <div className="clearfix"></div>
                 </Form>
               </Card.Body>

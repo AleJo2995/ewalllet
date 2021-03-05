@@ -79,22 +79,9 @@ const dashboardRoutes = [
     icon: "nc-icon nc-pin-3",
     component: Maps,
     layout: "/admin",
-  },
-  {
-    path: "/signup",
-    name: "Sign Up",
-    icon: "nc-icon nc-tablet-2",
-    component: SignUp,
-    layout: "/generic",
-  },
+  }
+  
 
-  {
-    path: "/login",
-    name: "Login",
-    icon: "nc-icon nc-tablet-2",
-    component: Login,
-    layout: "/generic",
-  },
 ];
 
 export default dashboardRoutes;

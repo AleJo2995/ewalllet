@@ -28,20 +28,20 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import AdminLayout from "layouts/Admin.js";
 import GenericLayout from "layouts/Generic.js";
+import Login from "views/Login";
+import SignUp from "views/SignUp";
 
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-    <Route path="/generic" render={(props) => <GenericLayout {...props} />} />
-    <Redirect from="/" to="/generic/login" />
 
-    <Route path="/generic" render={(props) => <GenericLayout {...props} />} />
-    <Redirect from="/" to="/generic/signup" />
-    
-      <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-      <Redirect from="/" to="/admin/dashboard" />
+    <Route path="/login" render={(props) => <Login {...props} />} />
 
+    <Route path="/signup" render={(props) => <SignUp {...props} />} />
+
+    <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+  
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
