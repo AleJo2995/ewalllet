@@ -1,3 +1,4 @@
+import Generic from "layouts/Generic";
 import React from "react";
 //import {url} from '../config'
 
@@ -13,8 +14,9 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const axios = require('axios').default;
+//const axios = require('axios').default;
 
 const url = 'http://localhost:8080/api';
 
@@ -30,7 +32,9 @@ function Login() {
     .catch(function (error) {
       // handle error
       console.log(error);
+    
     })
+
 
 
     // axios.get(URL + '/users?id=' +id+ '&password=' + password)
@@ -85,6 +89,7 @@ function Login() {
                   >
                     Login
                   </Button>
+                  <Link to="/generic/signup">Sign Up</Link>
                   <div className="clearfix"></div>
                 </Form>
               </Card.Body>

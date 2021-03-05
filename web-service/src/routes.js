@@ -81,11 +81,11 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/singup",
+    path: "/signup",
     name: "Sign Up",
     icon: "nc-icon nc-tablet-2",
     component: SignUp,
-    layout: "/admin",
+    layout: "/generic",
   },
 
   {
@@ -93,7 +93,7 @@ const dashboardRoutes = [
     name: "Login",
     icon: "nc-icon nc-tablet-2",
     component: Login,
-    layout: "/admin",
+    layout: "/generic",
   },
 ];
 

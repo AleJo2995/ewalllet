@@ -13,6 +13,7 @@ import {
   Col,
 } from "react-bootstrap";
 
+
 function SignUp() {
   return (
     <>
@@ -28,9 +29,9 @@ function SignUp() {
                   <Row>
                     <Col className="pr-1" md="5">
                       <Form.Group>
-                        <label>Usuario</label>
+                        <label>Cédula</label>
                         <Form.Control
-                          placeholder="Usuario"
+                          placeholder="Cedula"
                           type="text"
                         ></Form.Control>
                       </Form.Group>
@@ -42,6 +43,24 @@ function SignUp() {
                           defaultValue="*****"
                           placeholder="Clave"
                           type="password"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pr-1" md="5">
+                      <Form.Group>
+                        <label>Primer Apellido</label>
+                        <Form.Control
+                          placeholder="Segundo Apellido"
+                          type="text"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="px-1" md="3">
+                      <Form.Group>
+                        <label>Segundo Apellido</label>
+                        <Form.Control
+                          placeholder="Segundo Apellido"
+                          type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -58,24 +77,6 @@ function SignUp() {
                     </Col>
                   </Row>
                   <Row>
-                    <Col className="pr-1" md="6">
-                      <Form.Group>
-                        <label>Método de Pago</label>
-                        <Form.Control
-                          placeholder="Tarjeta BAC"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pr-1" md="6">
-                      <Form.Group>
-                        <label>Número de Tarjeta</label>
-                        <Form.Control
-                          placeholder="Tarjeta BAC"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
                     <Col className="pl-1" md="6">
                       <Form.Group>
                         <label>Fecha de Nacimiento</label>
