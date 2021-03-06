@@ -35,7 +35,9 @@ import SignUp from "views/SignUp";
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-
+    <Route exact path="/">
+    <Redirect to="/login" />
+            </Route>
     <Route path="/login" render={(props) => <Login {...props} />} />
 
     <Route path="/signup" render={(props) => <SignUp {...props} />} />

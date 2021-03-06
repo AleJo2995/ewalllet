@@ -14,6 +14,7 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+
 import { Link } from "react-router-dom";
 
 //const axios = require('axios').default;
@@ -50,17 +51,17 @@ function Login() {
 
   return (
     <>
-      <Container fluid>
+      <Container  >
         <Row>
           <Col md="8">
-            <Card>
+            <Card >
               <Card.Header>
                 <Card.Title as="h4">Login</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
+                    <Col className="pl-1" md="12">
                       <Form.Group>
                         <label>Usuario</label>
                         <Form.Control
@@ -69,7 +70,7 @@ function Login() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="px-1" md="5">
+                    <Col className="pr-1" md="12">
                       <Form.Group>
                         <label>Clave</label>
                         <Form.Control
@@ -82,14 +83,14 @@ function Login() {
                   </Row>
                  
                   <Button
-                    className="btn btn-primary btn-block"
+                    className="btn btn-primary btn-block btn-fill"
                     type="submit"
                     variant="primary"
                     onClick={() => validateUserData(true)}    
                   >
                     Login
                   </Button>
-                  <Link to="/views/signup">Sign Up</Link>
+                  <Link to="/signup" >Sign Up</Link>
                   <div className="clearfix"></div>
                 </Form>
               </Card.Body>

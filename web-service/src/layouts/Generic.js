@@ -2,7 +2,9 @@
 import React, { Component } from "react";
 import { useLocation, Route, Switch } from "react-router-dom";
 
+
 import Sidebar from "components/Sidebar/Sidebar";
+
 
 
 import routes from "routes.js";
@@ -32,9 +34,12 @@ function Generic() {
   };
   return (
     <>
+
       <div className="content">
             <Switch>{getRoutes(routes)}</Switch>
           </div>
+        
+        
     </>
   );
 }

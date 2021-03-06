@@ -64,7 +64,9 @@ pre.prettyprint{
 .container-fluid{
     padding-right: 15px;
     padding-left: 15px;
+    
 }
+
 .logo-container .logo{
     overflow: hidden;
     border-radius: 50%;

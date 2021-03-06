@@ -17,17 +17,17 @@ import {
 function SignUp() {
   return (
     <>
-      <Container fluid>
+      <Container fluid >
         <Row>
           <Col md="8">
-            <Card>
+            <Card >
               <Card.Header>
                 <Card.Title as="h4">Sign Up</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
+                    <Col className="pl-1" md="6">
                       <Form.Group>
                         <label>Cédula</label>
                         <Form.Control
@@ -36,7 +36,7 @@ function SignUp() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="px-1" md="3">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>Clave</label>
                         <Form.Control
@@ -46,7 +46,7 @@ function SignUp() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="pr-1" md="5">
+                    <Col className="pl-1" md="6">
                       <Form.Group>
                         <label>Primer Apellido</label>
                         <Form.Control
@@ -55,7 +55,7 @@ function SignUp() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="px-1" md="3">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>Segundo Apellido</label>
                         <Form.Control
@@ -64,7 +64,7 @@ function SignUp() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="pl-1" md="4">
+                    <Col className="pl-1" md="6">
                       <Form.Group>
                         <label htmlFor="exampleInputEmail1">
                           Email
@@ -75,9 +75,7 @@ function SignUp() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pl-1" md="6">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>Fecha de Nacimiento</label>
                         <Form.Control
@@ -89,13 +87,13 @@ function SignUp() {
                   </Row>
                  
                   <Button
-                    className="btn btn-success btn-block"
+                    className="btn btn-success btn-block btn-fill"
                     type="submit"
                     variant="success"
            
                     
                   >
-                    Registar
+                    Registrarse
                   </Button>
                   <div className="clearfix"></div>
                 </Form>
