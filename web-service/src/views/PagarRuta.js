@@ -1,4 +1,5 @@
-import React from "react";
+import config from "../config.json";
+import React, { useState } from 'react'
 
 // react-bootstrap components
 import {
@@ -13,7 +14,49 @@ import {
   Col,
 } from "react-bootstrap";
 
+const axios = require('axios');
+
 function Pagar() {
+
+  const { SERVER_URL } = config;
+  //const [walletId, setWalletId] = useState('');
+  const [amount, setAmount] = useState('');
+
+  const getWallets = () => {
+    const payment = {
+      walletId: 1,
+      amount:amount
+    };
+    axios.post(SERVER_URL + '/payments/payRoute', payment)
+    .then((data) => {
+      // handling success
+      console.log(data);
+      //redireccionar al login
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+  }
+
+
+  const executePayment = () => {
+    const payment = {
+      walletId: 1,
+      amount:amount
+    };
+    axios.post(SERVER_URL + '/payments/payRoute', payment)
+    .then((data) => {
+      // handling success
+      console.log(data);
+      //redireccionar al login
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+  }
+
   return (
     <>
       <Container fluid>
@@ -41,39 +84,21 @@ function Pagar() {
                       <Form.Group>
                         <label>Monto</label>
                         <Form.Control
-                          defaultValue="1000"
                           placeholder="Monto"
                           type="text"
+                          onChange={(e) => setAmount(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
                   </Row>
                   <Row>
-                    <Col className="pr-1" md="6">
-                      <Form.Group>
-                        <label>Número Tarjeta</label>
-                        <Form.Control
-                          defaultValue="60525056545957823"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
 
-                    <Col className="pr-1" md="6">
-                      <Form.Group>
-                        <label>CVV</label>
-                        <Form.Control
-                          defaultValue="773"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
                   </Row>
                  
                   <Button
                     className="btn-fill pull-right"
-                    type="submit"
                     variant="success"
+                    onClick={() => executePayment()} 
                   >
                     Pagar
                   </Button>

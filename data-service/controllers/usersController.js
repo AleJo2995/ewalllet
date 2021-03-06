@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 const userData = require('../data/user');
 
 const getUsers = async(req, res, next) => {
@@ -21,6 +23,23 @@ const getUserById = async(req, res, next) => {
     }
 }
 
+function validateUserCredentials(user, userId, pwd ) {
+    return user.cedula === userId && user.password === pwd;
+}
+
+const validateUserExists = async(req, res, next) => {
+    try {
+        const userId = req.params.id;
+        const pwd = req.params.password;
+        const user = await userData.getUserById(userId);
+        const valid = validateUserCredentials(user, userId, pwd);
+        console.log(valid);
+        res.send(valid);
+    } catch(error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const createUser = async(req, res, next) => {
     try {
         const newUserData = req.body;
@@ -31,10 +50,9 @@ const createUser = async(req, res, next) => {
     }
 }
 
-
-
 module.exports = {
     getUsers,
     getUserById,
-    createUser
+    createUser,
+    validateUserExists
 }

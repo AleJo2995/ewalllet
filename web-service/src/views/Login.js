@@ -1,6 +1,7 @@
-import Generic from "layouts/Generic";
-import React from "react";
-//import {url} from '../config'
+import React, {  useState } from 'react'
+import { Link } from "react-router-dom";
+import config from "../config.json";
+import { useHistory } from "react-router-dom";
 
 // react-bootstrap components
 import {
@@ -15,38 +16,31 @@ import {
   Col,
 } from "react-bootstrap";
 
-import { Link } from "react-router-dom";
 
-//const axios = require('axios').default;
 
-const url = 'http://localhost:8080/api';
+const axios = require('axios');
 
 function Login() {
 
-  const validateUserData = (id = "111111111" , password = "1111111" ) => {
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
 
-    axios.get(url + '/users/' + id)
+  let history = useHistory();  
+
+  const { SERVER_URL } = config;
+  const validateUserData = () => {
+
+    axios.get(SERVER_URL + '/users/validateUser', { params: { id: user, password:password}})
     .then((data) => {
       // handling success
-      redirectToMain()
+      console.log(data);
+      history.push('/admin/dashboard')
     })
     .catch(function (error) {
       // handle error
       console.log(error);
     
     })
-
-
-
-    // axios.get(URL + '/users?id=' +id+ '&password=' + password)
-    // .then((data) => {
-    //   // handling success
-    //   redirectToMain()
-    // })
-    // .catch(function (error) {
-    //   // handle error
-    //   console.log(error);
-    // })
   }
 
   return (
@@ -67,6 +61,7 @@ function Login() {
                         <Form.Control
                           placeholder="Usuario"
                           type="text"
+                          onChange={(e) => setUser(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -74,9 +69,9 @@ function Login() {
                       <Form.Group>
                         <label>Clave</label>
                         <Form.Control
-                          defaultValue="*****"
                           placeholder="Clave"
                           type="password"
+                          onChange={(e) => setPassword(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -84,9 +79,8 @@ function Login() {
                  
                   <Button
                     className="btn btn-primary btn-block btn-fill"
-                    type="submit"
                     variant="primary"
-                    onClick={() => validateUserData(true)}    
+                    onClick={() => validateUserData()}    
                   >
                     Login
                   </Button>
