@@ -9,10 +9,6 @@ const executePayment = async(req, res, next) => {
         const wallet = await paymentsData.retrieveWallet(walletId);
         //Logic to validate if wallet has balance
         const balance = wallet[0].saldo - amount;
-        console.log(wallet);
-        console.log(wallet.saldo);
-        console.log(amount);
-        console.log(balance);
         if (balance <= 0){
             res.status(500).send(error.message);
         }
@@ -22,6 +18,9 @@ const executePayment = async(req, res, next) => {
         res.status(500).send(error.message);
     }
 }
+
+
+
 
 module.exports = {
     executePayment
