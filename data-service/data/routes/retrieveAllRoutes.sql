@@ -5,4 +5,3 @@ SELECT [codigo]
       ,[empresa]
       ,[provincia]
   FROM [dbo].[ruta]
-  WHERE [codigo]=@routeCode

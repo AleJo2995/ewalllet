@@ -12,6 +12,27 @@ const createRoute = async(req, res, next) => {
     }
 }
 
+const getRouteByCode = async(req, res, next) => {
+    try {
+        const routeCode = req.params.code;
+        const route = await routesData.getRouteByCode(routeCode);
+        res.send(route);
+    } catch(error) {
+        res.status(500).send(error.message);
+    }
+}
+
+const getAllRoutes = async(req, res, next) => {
+    try {
+        const routes = await routesData.getAllRoutes();
+        res.send(routes);
+    } catch(error) {
+        res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
-    createRoute
+    createRoute,
+    getRouteByCode,
+    getAllRoutes
 }
