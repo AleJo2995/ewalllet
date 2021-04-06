@@ -22,6 +22,17 @@ const getRouteByCode = async(req, res, next) => {
     }
 }
 
+const editRoute = async(req, res, next) => {
+    try {
+        const routeCode = req.params.code;
+        const routeBody = req.body;
+        const editedRoute = await routesData.editRoute(routeCode, routeBody);
+        res.send(editedRoute);
+    } catch(error) {
+        res.status(500).send(error.message);
+    }
+}
+
 const getAllRoutes = async(req, res, next) => {
     try {
         const routes = await routesData.getAllRoutes();
@@ -34,5 +45,6 @@ const getAllRoutes = async(req, res, next) => {
 module.exports = {
     createRoute,
     getRouteByCode,
-    getAllRoutes
+    getAllRoutes,
+    editRoute
 }
