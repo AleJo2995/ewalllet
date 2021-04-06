@@ -24,6 +24,7 @@ module.exports = {
         options: {
             encrypt: sqlEncrypt,
             enableArithAbort:true
-        }
+        },
+        rolesUserTableName: 'rol_x_usuario'
     }
 }
