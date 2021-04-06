@@ -23,6 +23,20 @@ const executePayment = async(req, res, next) => {
     }
 }
 
+const increaseWalletBalance = async(req, res, next) => {
+    try {
+        const walletId = req.params.walletId;
+        const wallet = await paymentsData.retrieveWallet(walletId);
+        const payment = await paymentsData
+                                .executePayment(wallet[0].saldo + 
+                                parseInt(req.body.amount), walletId);
+        res.send(payment);
+    } catch(error) {
+        res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
-    executePayment
+    executePayment,
+    increaseWalletBalance
 }
