@@ -48,8 +48,86 @@ const createUser = async (userData) => {
     }
 }
 
+const createRole = async (userData) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('user');
+        const newUser = await pool.request()
+                    .input('nombre', sql.NVarChar, userData.nombre)
+                    .query(sqlQueries.insertRol);
+        return newUser.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const changeRoleName = async (userData) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('user');
+        const newUser = await pool.request()
+                    .input('lastName', sql.NVarChar, userData.lastName)
+                    .input('nombre', sql.NVarChar, userData.newName)
+                    .query(sqlQueries.changeRoleName);
+        return newUser.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const retrieveRoleIdByName = async (roleName) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('user');
+        const newUser = await pool.request()
+                    .input('roleName', sql.NVarChar, roleName)
+                    .query(sqlQueries.getRoleIdByName);
+        return newUser.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const addRolesToUser = async (rolesToAdd) => {
+    try {
+        // let pool = await sql.connect(config.sql);
+        // const sqlQueries = await utils.loadSqlQueries('user');
+        // const newUser = await pool.request()
+        //             .input('formatted_values', sql.NVarChar, userData.lastName)
+        //             .input('nombre', sql.NVarChar, userData.newName)
+        //             .query(sqlQueries.changeRoleName);
+        // return newUser.recordset;
+
+        sql.connect(config.sql)
+            .then(() => {
+                console.log('connected');
+
+                const table = new sql.Table(config.sql.rolesUserTableName); //Configurable table name for enabling bulk insert
+                table.create = false;
+
+                rolesToAdd.forEach(element => {
+                    table.rows.add(element.id_rol, element.cedula)
+                });
+                const request = new sql.Request();
+                return request.bulk(table)
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    } catch (error) {
+        return error.message;
+    }
+}
+
 module.exports = {
     getUsers,
     getUserById,
-    createUser
+    createUser,
+    createRole,
+    changeRoleName,
+    addRolesToUser,
+    retrieveRoleIdByName
 }
