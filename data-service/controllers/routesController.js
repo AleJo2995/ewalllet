@@ -42,9 +42,25 @@ const getAllRoutes = async(req, res, next) => {
     }
 }
 
+
+const addRoutesToDriver = async(req, res, next) => {
+    try {
+        const routesInfo = req.body;
+        let rowsToAdd = []; 
+        routesInfo.rutas.forEach(element => {
+            rowsToAdd.push({ cedula: routesInfo.cedula, codigo_ruta: element})
+        });
+        const rolesAdded = await routesData.addRoutesToDriver(rowsToAdd);
+        res.send(rolesAdded);
+    } catch(error) {
+        res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     createRoute,
     getRouteByCode,
     getAllRoutes,
-    editRoute
+    editRoute,
+    addRoutesToDriver
 }

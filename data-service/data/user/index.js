@@ -90,20 +90,13 @@ const retrieveRoleIdByName = async (roleName) => {
 
 const addRolesToUser = async (rolesToAdd) => {
     try {
-        // let pool = await sql.connect(config.sql);
-        // const sqlQueries = await utils.loadSqlQueries('user');
-        // const newUser = await pool.request()
-        //             .input('formatted_values', sql.NVarChar, userData.lastName)
-        //             .input('nombre', sql.NVarChar, userData.newName)
-        //             .query(sqlQueries.changeRoleName);
-        // return newUser.recordset;
-
         sql.connect(config.sql)
             .then(() => {
-                console.log('connected');
 
                 const table = new sql.Table(config.sql.rolesUserTableName); //Configurable table name for enabling bulk insert
                 table.create = false;
+                table.columns.add('id_rol', sql.Int, { nullable: false, primary: true });
+                table.columns.add('cedula', sql.Numeric, { nullable: false, primary: true  });
 
                 rolesToAdd.forEach(element => {
                     table.rows.add(element.id_rol, element.cedula)

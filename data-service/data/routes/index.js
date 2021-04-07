@@ -79,6 +79,34 @@ const deleteRoute = async (code, cost, description, name, company, province) => 
     }
 }
 
+const addRoutesToDriver = async (routesToAdd) => {
+    try {
+        sql.connect(config.sql)
+            .then(() => {
+                const table = new sql.Table(config.sql.routesDriverTableName); //Configurable table name for enabling bulk insert
+                table.create = false;
+                table.columns.add('codigo_ruta', sql.NVarChar, { nullable: false, primary: true });
+                table.columns.add('cedula', sql.Numeric, { nullable: false, primary: true  });
+
+                routesToAdd.forEach(element => {
+                    table.rows.add(element.codigo_ruta, element.cedula)
+                });
+                const request = new sql.Request();
+                return request.bulk(table)
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    } catch (error) {
+        return error.message;
+    }
+}
+
 module.exports = {
-    createRoute, deleteRoute, editRoute, getRouteByCode, getAllRoutes
+    createRoute, deleteRoute, 
+    editRoute, getRouteByCode, 
+    getAllRoutes, addRoutesToDriver
 }
