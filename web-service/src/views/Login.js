@@ -46,8 +46,9 @@ function Login() {
   return (
     <>
       <Container  >
+      <br/><br/><br/><br/>
         <Row>
-          <Col md="8">
+          <Col md="12">
             <Card >
               <Card.Header>
                 <Card.Title as="h4">Login</Card.Title>

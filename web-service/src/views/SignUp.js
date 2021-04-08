@@ -56,8 +56,9 @@ function SignUp() {
   return (
     <>
       <Container fluid >
+      <br/><br/>
         <Row>
-          <Col md="8">
+          <Col md="12">
             <Card >
               <Card.Header>
                 <Card.Title as="h4">Sign Up</Card.Title>

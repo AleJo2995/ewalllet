@@ -18,7 +18,7 @@ function Recargar() {
     <>
       <Container fluid>
         <Row>
-          <Col md="8">
+          <Col md="12">
             <Card>
               <Card.Header>
                 <Card.Title as="h4">Recargar</Card.Title>
@@ -26,7 +26,7 @@ function Recargar() {
               <Card.Body>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>Usuario</label>
                         <Form.Control
@@ -37,7 +37,7 @@ function Recargar() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="px-1" md="3">
+                    <Col className="px-1" md="6">
                       <Form.Group>
                         <label>Monto</label>
                         <Form.Control

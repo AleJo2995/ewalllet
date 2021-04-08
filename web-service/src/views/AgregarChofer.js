@@ -13,7 +13,7 @@ import {
   Col,
 } from "react-bootstrap";
 
-function User() {
+function Chofer() {
   return (
     <>
       <Container fluid>
@@ -21,65 +21,63 @@ function User() {
           <Col md="12">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Editar Datos</Card.Title>
+                <Card.Title as="h4">Agregar Chofer</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
+                    <Col className="pr-1" md="6">
+                      <Form.Group>
+                        <label>Nombre</label>
+                        <Form.Control
+                          type="text"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="px-1" md="6">
+                      <Form.Group>
+                        <label>Primer Apellido</label>
+                        <Form.Control
+                          type="text"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="px-1" md="6">
+                      <Form.Group>
+                        <label>Segundo Apellido</label>
+                        <Form.Control
+                          type="text"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pr-1" md="6">
+                      <Form.Group>
+                        <label>Ruta Asignada</label>
+                        <Form.Control
+                          type="text"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>Usuario</label>
                         <Form.Control
-                          defaultValue="AleSte."
-                          disabled
-                          placeholder="Usuario"
                           type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="px-1" md="3">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>Clave</label>
                         <Form.Control
-                          defaultValue="*****"
-                          placeholder="Clave"
                           type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label htmlFor="exampleInputEmail1">
-                          Email
-                        </label>
-                        <Form.Control
-                          placeholder="Email"
-                          type="email"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
                   </Row>
                   <Row>
-                    <Col className="pr-1" md="6">
-                      <Form.Group>
-                        <label>Método de Pago</label>
-                        <Form.Control
-                          defaultValue="Tarjeta"
-                          placeholder="BAC"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="6">
-                      <Form.Group>
-                        <label>Fecha de Nacimiento</label>
-                        <Form.Control
-                          defaultValue="05-11-1998"
-                          placeholder="Nacimiento"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
+
+  
                   </Row>
                  
                   <Button
@@ -87,7 +85,7 @@ function User() {
                     type="submit"
                     variant="info"
                   >
-                    Actualizar Datos
+                    Crear Chofer
                   </Button>
                   <div className="clearfix"></div>
                 </Form>
@@ -101,4 +99,4 @@ function User() {
   );
 }
 
-export default User;
+export default Chofer;

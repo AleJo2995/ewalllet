@@ -28,6 +28,9 @@ import Notifications from "views/Notifications.js";
 import Upgrade from "views/Upgrade.js";
 import SignUp from "views/SignUp.js";
 import Login from "views/Login.js";
+import AgregarChofer from "views/AgregarChofer.js";
+import AgregarRuta from "views/AgregarRuta.js";
+
 const dashboardRoutes = [
 
   {
@@ -80,7 +83,21 @@ const dashboardRoutes = [
     component: Maps,
     layout: "/admin",
   }
-  
+  {
+    path: "/agregarchofer",
+    name: "Agregar Chofer",
+    icon: "nc-icon nc-notes",
+    component: AgregarChofer,
+    layout: "/admin",
+  },
+
+  {
+    path: "/AgregarRuta",
+    name: "Agregar Ruta",
+    icon: "nc-icon nc-notes",
+    component: AgregarRuta,
+    layout: "/admin",
+  },
 
 ];
 

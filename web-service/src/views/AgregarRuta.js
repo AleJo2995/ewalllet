@@ -13,7 +13,7 @@ import {
   Col,
 } from "react-bootstrap";
 
-function User() {
+function Ruta() {
   return (
     <>
       <Container fluid>
@@ -21,65 +21,65 @@ function User() {
           <Col md="12">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Editar Datos</Card.Title>
+                <Card.Title as="h4">Agregar Ruta</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
-                        <label>Usuario</label>
+                        <label>Codigo</label>
                         <Form.Control
-                          defaultValue="AleSte."
-                          disabled
-                          placeholder="Usuario"
+                          
+                          
                           type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="px-1" md="3">
+                    <Col className="px-1" md="6">
                       <Form.Group>
-                        <label>Clave</label>
+                        <label>Costo</label>
                         <Form.Control
-                          defaultValue="*****"
-                          placeholder="Clave"
                           type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="pl-1" md="4">
+                    <Col className="px-1" md="6">
                       <Form.Group>
-                        <label htmlFor="exampleInputEmail1">
-                          Email
-                        </label>
+                        <label>Descripcion</label>
                         <Form.Control
-                          placeholder="Email"
-                          type="email"
+                          type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
+                    <Col className="px-1" md="6">
+                      <Form.Group>
+                        <label>Nombre</label>
+                        <Form.Control
+                          type="text"
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                  
                   </Row>
                   <Row>
                     <Col className="pr-1" md="6">
                       <Form.Group>
-                        <label>Método de Pago</label>
+                        <label>Empresa</label>
                         <Form.Control
-                          defaultValue="Tarjeta"
-                          placeholder="BAC"
                           type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="pl-1" md="6">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
-                        <label>Fecha de Nacimiento</label>
+                        <label>Provincia</label>
                         <Form.Control
-                          defaultValue="05-11-1998"
-                          placeholder="Nacimiento"
                           type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
+  
                   </Row>
                  
                   <Button
@@ -87,7 +87,7 @@ function User() {
                     type="submit"
                     variant="info"
                   >
-                    Actualizar Datos
+                    Crear Ruta
                   </Button>
                   <div className="clearfix"></div>
                 </Form>
@@ -101,4 +101,4 @@ function User() {
   );
 }
 
-export default User;
+export default Ruta;
