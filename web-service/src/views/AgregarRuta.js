@@ -1,4 +1,5 @@
-import React from "react";
+import React , { useState } from "react";
+import config from "../config.json";
 
 // react-bootstrap components
 import {
@@ -13,7 +14,42 @@ import {
   Col,
 } from "react-bootstrap";
 
+import axios from "axios";
+
 function Ruta() {
+
+  const { SERVER_URL } = config;
+  const [code, setCode] = useState('');
+  const [cost, setCost] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [empresa, setEmpresa] = useState('');
+  const [provincia, setProvincia] = useState('');
+
+
+  const createRoute = (event) => {
+    event.preventDefault();
+    const newRoute = {
+      code: code,
+      cost:cost,
+      name:nombre,
+      description:descripcion,
+      company:empresa,
+      province:provincia
+    };
+    axios.post(SERVER_URL + '/routes/create', newRoute)
+    .then((data) => {
+      // handling success
+      console.log(data);
+     
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+  }
+
+  
   return (
     <>
       <Container fluid>
@@ -30,9 +66,9 @@ function Ruta() {
                       <Form.Group>
                         <label>Codigo</label>
                         <Form.Control
-                          
-                          
+                          placeholder="Codigo"
                           type="text"
+                          onChange={(e) => setCode(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -40,7 +76,9 @@ function Ruta() {
                       <Form.Group>
                         <label>Costo</label>
                         <Form.Control
+                          placeholder="Costo"
                           type="text"
+                          onChange={(e) => setCost(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -48,7 +86,9 @@ function Ruta() {
                       <Form.Group>
                         <label>Descripcion</label>
                         <Form.Control
+                          placeholder="Descripcion"
                           type="text"
+                          onChange={(e) => setDescripcion(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -56,7 +96,9 @@ function Ruta() {
                       <Form.Group>
                         <label>Nombre</label>
                         <Form.Control
+                          placeholder="Nombre"
                           type="text"
+                          onChange={(e) => setNombre(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -67,7 +109,9 @@ function Ruta() {
                       <Form.Group>
                         <label>Empresa</label>
                         <Form.Control
+                          placeholder="Empresa"
                           type="text"
+                          onChange={(e) => setEmpresa(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -75,7 +119,9 @@ function Ruta() {
                       <Form.Group>
                         <label>Provincia</label>
                         <Form.Control
+                          placeholder="Provincia"
                           type="text"
+                          onChange={(e) => setProvincia(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -86,6 +132,7 @@ function Ruta() {
                     className="btn-fill pull-right"
                     type="submit"
                     variant="info"
+                    onClick={createRoute} 
                   >
                     Crear Ruta
                   </Button>

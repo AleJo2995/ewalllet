@@ -82,7 +82,7 @@ const dashboardRoutes = [
     icon: "nc-icon nc-pin-3",
     component: Maps,
     layout: "/admin",
-  }
+  },
   {
     path: "/agregarchofer",
     name: "Agregar Chofer",

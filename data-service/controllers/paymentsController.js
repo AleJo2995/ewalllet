@@ -36,7 +36,18 @@ const increaseWalletBalance = async(req, res, next) => {
     }
 }
 
+const getWalletByUserId = async(req, res, next) => {
+    try {
+        const cedula = req.params.cedula;
+        const wallet = await paymentsData.retrieveWalletByUserId(cedula);
+        res.send(wallet);
+    } catch(error) {
+        res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     executePayment,
-    increaseWalletBalance
+    increaseWalletBalance,
+    getWalletByUserId
 }

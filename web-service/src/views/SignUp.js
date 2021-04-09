@@ -30,6 +30,7 @@ function SignUp() {
   let history = useHistory();  
 
   const signUpUser = () => {
+    event.preventDefault();
     const newUser = {
       cedula: cedula,
       password:password,
@@ -144,7 +145,7 @@ function SignUp() {
                     className="btn btn-success btn-block btn-fill"
                     type="submit"
                     variant="success"
-                    onClick={() => signUpUser()}    
+                    onClick={signUpUser}    
                   >
                     Registrarse
                   </Button>

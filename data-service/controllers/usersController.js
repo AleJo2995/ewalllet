@@ -43,7 +43,7 @@ const validateUserExists = async(req, res, next) => {
 const createUser = async(req, res, next) => {
     try {
         const newUserData = req.body;
-        const userCreated = await userData.createRol(newUserData);
+        const userCreated = await userData.createUser(newUserData);
         res.send(userCreated);
     } catch(error) {
         res.status(400).send(error.message);
