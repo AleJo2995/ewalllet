@@ -24,6 +24,8 @@ module.exports = {
         options: {
             encrypt: sqlEncrypt,
             enableArithAbort:true
-        }
+        },
+        rolesUserTableName: 'rol_x_usuario',
+        routesDriverTableName: 'ruta_x_chofer'
     }
 }

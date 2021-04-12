@@ -61,7 +61,7 @@ function Pagar() {
     <>
       <Container fluid>
         <Row>
-          <Col md="8">
+          <Col md="12">
             <Card>
               <Card.Header>
                 <Card.Title as="h4">Pagar Ruta</Card.Title>
@@ -69,7 +69,7 @@ function Pagar() {
               <Card.Body>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>Ruta</label>
                         <Form.Control
@@ -80,7 +80,7 @@ function Pagar() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="px-1" md="3">
+                    <Col className="px-1" md="6">
                       <Form.Group>
                         <label>Monto</label>
                         <Form.Control

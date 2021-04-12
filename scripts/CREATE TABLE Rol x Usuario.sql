@@ -1,7 +1,7 @@
 USE [EWallet]
 GO
 
-/****** Object:  Table [dbo].[rol_x_usuario]    Script Date: 1/3/2021 18:28:50 ******/
+/****** Object:  Table [dbo].[rol_x_usuario]    Script Date: 6/4/2021 21:30:13 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,9 +12,10 @@ CREATE TABLE [dbo].[rol_x_usuario](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[id_rol] [int] NOT NULL,
 	[cedula] [numeric](9, 0) NOT NULL,
- CONSTRAINT [PK_rol_x_usuario] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_rol_x_usuario_1] PRIMARY KEY CLUSTERED 
 (
-	[id] ASC
+	[id_rol] ASC,
+	[cedula] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO

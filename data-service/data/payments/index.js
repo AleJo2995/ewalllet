@@ -17,7 +17,34 @@ const retrieveWallet = async (walletId) => {
     }
 }
 
+const retrieveWalletByUserId = async (cedula) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('payments');
+        const wallet = await pool.request()
+                        .input('cedula', sql.Int, cedula)
+                        .query(sqlQueries.retrieveWalletByCedula);
+        return wallet.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 const executePayment = async (balance, walletId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('payments');
+        const wallet = await pool.request()
+                        .input('walletId', sql.Int, walletId)
+                        .input('balance', sql.Int, balance)
+                        .query(sqlQueries.updateTotal);
+        return wallet.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const increaseWalletBalance = async (balance, walletId) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('payments');
@@ -33,5 +60,7 @@ const executePayment = async (balance, walletId) => {
 
 module.exports = {
     retrieveWallet,
-    executePayment
+    executePayment, 
+    increaseWalletBalance,
+    retrieveWalletByUserId
 }

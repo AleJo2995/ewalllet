@@ -19,10 +19,35 @@ const executePayment = async(req, res, next) => {
         const payment = await paymentsData.executePayment(balance, walletId);
         res.send(payment);
     } catch(error) {
-        res.status(400).send(error.message);
+        res.status(500).send(error.message);
+    }
+}
+
+const increaseWalletBalance = async(req, res, next) => {
+    try {
+        const walletId = req.params.walletId;
+        const wallet = await paymentsData.retrieveWallet(walletId);
+        const payment = await paymentsData
+                                .executePayment(wallet[0].saldo + 
+                                parseInt(req.body.amount), walletId);
+        res.send(payment);
+    } catch(error) {
+        res.status(500).send(error.message);
+    }
+}
+
+const getWalletByUserId = async(req, res, next) => {
+    try {
+        const cedula = req.params.cedula;
+        const wallet = await paymentsData.retrieveWalletByUserId(cedula);
+        res.send(wallet);
+    } catch(error) {
+        res.status(500).send(error.message);
     }
 }
 
 module.exports = {
-    executePayment
+    executePayment,
+    increaseWalletBalance,
+    getWalletByUserId
 }

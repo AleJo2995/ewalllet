@@ -1,6 +1,5 @@
+import React , { useState } from "react";
 import config from "../config.json";
-import React, { useState } from 'react'
-import { useHistory } from "react-router-dom";
 
 // react-bootstrap components
 import {
@@ -14,10 +13,9 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import axios from "axios";
 
-const axios = require('axios').default;
-
-function SignUp() {
+function Chofer() {
 
   const { SERVER_URL } = config;
   const [cedula, setCedula] = useState('');
@@ -27,9 +25,8 @@ function SignUp() {
   const [segundoApellido, setSegundoApellido] = useState('');
   const [correo, setCorreo] = useState('');
   const [fechaNacimiento, setFechaNacimiento] = useState('');
-  let history = useHistory();  
 
-  const signUpUser = () => {
+  const createDriver = (event) => {
     event.preventDefault();
     const newUser = {
       cedula: cedula,
@@ -45,8 +42,21 @@ function SignUp() {
     .then((data) => {
       // handling success
       console.log(data);
-      //redireccionar al login
-      history.push('/login')
+
+      const rolesToAdd = {
+        cedula: cedula,
+        roles: config.DRIVER_ROLE_NAME
+      }
+
+      axios.post(SERVER_URL + '/users/addRolesPerUser', rolesToAdd)
+        .then((data) => {
+          // handling success
+          console.log(data);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
     })
     .catch(function (error) {
       // handle error
@@ -54,20 +64,20 @@ function SignUp() {
     })
   }
 
+
   return (
     <>
-      <Container fluid >
-      <br/><br/>
+      <Container fluid>
         <Row>
           <Col md="12">
-            <Card >
+            <Card>
               <Card.Header>
-                <Card.Title as="h4">Sign Up</Card.Title>
+                <Card.Title as="h4">Agregar Chofer</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form>
                   <Row>
-                    <Col className="pl-1" md="6">
+                    <Col className="pr-1" md="6">
                       <Form.Group>
                         <label>Cédula</label>
                         <Form.Control
@@ -77,8 +87,8 @@ function SignUp() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="pr-1" md="6">
-                      <Form.Group>
+                    <Col className="px-1" md="6">
+                    <Form.Group>
                         <label>Clave</label>
                         <Form.Control
                           placeholder="Clave"
@@ -87,8 +97,8 @@ function SignUp() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="pr-1" md="6">
-                      <Form.Group>
+                    <Col className="px-1" md="6">
+                    <Form.Group>
                         <label>Nombre</label>
                         <Form.Control
                           placeholder="Nombre"
@@ -97,8 +107,8 @@ function SignUp() {
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="pl-1" md="6">
-                      <Form.Group>
+                    <Col className="pr-1" md="6">
+                    <Form.Group>
                         <label>Primer Apellido</label>
                         <Form.Control
                           placeholder="Primer Apellido"
@@ -140,14 +150,19 @@ function SignUp() {
                       </Form.Group>
                     </Col>
                   </Row>
+                  <Row>
+
+  
+                  </Row>
                  
                   <Button
-                    className="btn btn-success btn-block btn-fill"
+                    className="btn-fill pull-right"
                     type="submit"
-                    variant="success"
-                    onClick={signUpUser}    
+                    variant="info"
+                    onClick={createDriver} 
+
                   >
-                    Registrarse
+                    Crear Chofer
                   </Button>
                   <div className="clearfix"></div>
                 </Form>
@@ -161,4 +176,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default Chofer;
