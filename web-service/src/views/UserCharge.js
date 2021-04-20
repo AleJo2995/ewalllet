@@ -71,19 +71,6 @@ function Recargar() {
       setErrors({ newBalance: "Este campo no puede estar vacío" });
     }
 
-  //   if(typeof fields["name"] !== "undefined"){
-  //      if(!fields["name"].match(/^[a-zA-Z]+$/)){
-  //         formIsValid = false;
-  //         errors["name"] = "Only letters";
-  //      }        
-  //   }
-
-  //   //Email
-  //   if(!fields["email"]){
-  //      formIsValid = false;
-  //      errors["email"] = "Cannot be empty";
-  //   }
-
   //   if(typeof fields["email"] !== "undefined"){
   //      let lastAtPos = fields["email"].lastIndexOf('@');
   //      let lastDotPos = fields["email"].lastIndexOf('.');

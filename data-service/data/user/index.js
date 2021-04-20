@@ -28,6 +28,19 @@ const getUserById = async (userId) => {
     }
 }
 
+const getRolesByUserId = async (userId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('user');
+        const user = await pool.request()
+                    .input('cedula', sql.Numeric, userId)
+                    .query(sqlQueries.getRolesByUserId);
+        return user.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 const createUser = async (userData) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -122,5 +135,6 @@ module.exports = {
     createRole,
     changeRoleName,
     addRolesToUser,
-    retrieveRoleIdByName
+    retrieveRoleIdByName,
+    getRolesByUserId
 }

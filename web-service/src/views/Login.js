@@ -1,7 +1,8 @@
 import React, {  useState } from 'react'
 import { Link } from "react-router-dom";
 import config from "../config.json";
-import { useHistory } from "react-router-dom";
+import { store } from 'react-notifications-component';
+import { Redirect } from 'react-router';
 
 // react-bootstrap components
 import {
@@ -20,25 +21,53 @@ import {
 
 const axios = require('axios');
 
-function Login() {
+function Login(props) {
 
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
-  let history = useHistory();  
+  const [userData, setUserData] = useState(false);
+
 
   const { SERVER_URL } = config;
   const validateUserData = () => {
 
-    axios.get(SERVER_URL + '/users/validateUser', { params: { id: user, password:password}})
-    .then((data) => {
+    axios.post(SERVER_URL + '/users/validateUser', {id:user, password:password})
+    .then((response) => {
       // handling success
-      console.log(data);
-      history.push('/admin/dashboard')
+      localStorage.setItem('user', JSON.stringify(response.data));
+      store.addNotification({
+        title: "Usuario logueado",
+        message: "Ya puede inciar con sus gestiones",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+      setRedirect(true);
     })
-    .catch(function (error) {
+    .catch((error) => {
       // handle error
       console.log(error);
+      store.addNotification({
+        title: "El usuario no es válido, las credenciales no parecen coincidir",
+        message: "Ya puede inciar con sus gestiones",
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
     
     })
   }
@@ -91,10 +120,12 @@ function Login() {
               </Card.Body>
             </Card>
           </Col>
-         
+          {redirect ? <Redirect  to={'/admin/dashboard'} user={userData}/> : null}
         </Row>
       </Container>
     </>
+    
+
   );
 }
 

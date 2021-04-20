@@ -30,10 +30,13 @@ import AdminLayout from "layouts/Admin.js";
 import GenericLayout from "layouts/Generic.js";
 import Login from "views/Login";
 import SignUp from "views/SignUp";
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 
 ReactDOM.render(
   <BrowserRouter>
+    <ReactNotification />
     <Switch>
     <Route exact path="/">
     <Redirect to="/login" />

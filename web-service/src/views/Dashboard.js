@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ChartistGraph from "react-chartist";
+import config from "../config.json";
 // react-bootstrap components
 import {
   Badge,
@@ -16,7 +17,33 @@ import {
   Tooltip,
 } from "react-bootstrap";
 
-function Dashboard() {
+import axios from "axios";
+
+function Dashboard(props) {
+
+  useEffect(() => {
+    getUserInfo()
+  }, []);
+
+  const { SERVER_URL } = config;
+
+  const getUserInfo = () => {
+    const userData = JSON.parse(localStorage.getItem('user'));
+    axios.get(SERVER_URL + '/users/' + userData.cedula)
+    .then((data) => {
+      // handling success
+      console.log(data);
+      //redireccionar al login
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+  }
+
+
+
+
   return (
     <>
       <Container fluid>

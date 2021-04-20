@@ -24,19 +24,29 @@ const getUserById = async(req, res, next) => {
 }
 
 function validateUserCredentials(user, userId, pwd ) {
-    return user.cedula === userId && user.password === pwd;
+    return user.cedula.toString() === userId && user.password === pwd;
 }
 
 const validateUserExists = async(req, res, next) => {
     try {
-        const userId = req.params.id;
-        const pwd = req.params.password;
+        const userId = req.body.id;
+        const pwd = req.body.password;
         const user = await userData.getUserById(userId);
-        const valid = validateUserCredentials(user, userId, pwd);
-        console.log(valid);
-        res.send(valid);
+        const finalUser = user[0];
+
+        const valid = validateUserCredentials(finalUser, userId, pwd);
+        if(valid){
+            finalUser.roles = [];
+            const userRoles = await userData.getRolesByUserId(userId);
+            userRoles.forEach(element => {
+                finalUser.roles.push(element.nombre);
+            });
+            res.status(200).send(finalUser);
+        } else {
+            res.status(500);
+        }
     } catch(error) {
-        res.status(400).send(error.message);
+        res.status(500).send(error.message);
     }
 }
 
