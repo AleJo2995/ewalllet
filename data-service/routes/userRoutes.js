@@ -11,7 +11,7 @@ const {getUsers, getUserById, createUser, validateUserExists, createRole,
 router.get('/users', getUsers);
 router.get('/users/:id', getUserById);
 router.post('/users/create', createUser);
-router.get('/users/validateUser', validateUserExists);
+router.post('/users/validateUser', validateUserExists);
 router.post('/users/createRole', createRole);
 router.patch('/users/changeRoleName', changeRoleName);
 router.post('/users/addRolesPerUser', addRolesToUser);
