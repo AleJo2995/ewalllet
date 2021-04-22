@@ -20,7 +20,7 @@ app.use('/api', paymentRoutes.routes)
 app.use('/api', busRoutes.routes)
 
 if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('../web-service/build'));
+    app.use(express.static('web-service/build'));
 }
 
 app.listen(config.port, () => console.log('Server is running on port:' + process.env.PORT || config.port));

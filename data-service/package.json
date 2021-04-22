@@ -4,8 +4,8 @@
   "description": "Service for data retrieval from ewallet app",
   "main": "app.js",
   "scripts": {
-    "build":"cd ../web-service && npm run build",
-    "install-client":"cd ../web-service && npm install",
+    "build":"cd web-service && npm run build",
+    "install-client": "cd web-service && npm install",
     "heroku-postbuild":"npm run install-client && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"

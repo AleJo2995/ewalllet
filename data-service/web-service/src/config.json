@@ -1,0 +1,8 @@
+{
+    "SERVER_URL": "http://localhost:8080/api",
+    "DRIVER_ROLE_NAME": ["chofer"],
+    "THEME_COLORS": {
+      "PRIMARY": "#007bff",
+      "SECONDARY": "#fc3"
+    }
+  }
