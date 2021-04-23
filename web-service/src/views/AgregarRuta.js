@@ -1,5 +1,6 @@
 import React , { useState } from "react";
 import config from "../config.json";
+import { store } from 'react-notifications-component';
 
 // react-bootstrap components
 import {
@@ -26,7 +27,6 @@ function Ruta() {
   const [empresa, setEmpresa] = useState('');
   const [provincia, setProvincia] = useState('');
 
-
   const createRoute = (event) => {
     event.preventDefault();
     const newRoute = {
@@ -38,14 +38,45 @@ function Ruta() {
       province:provincia
     };
     axios.post(SERVER_URL + '/routes/create', newRoute)
-    .then((data) => {
+    .then((response) => {
       // handling success
-      console.log(data);
+      store.addNotification({
+        title: "Ruta creada",
+        message: "Puede continuar con sus gestiones",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+      setCode('');
+      setCost('');
+      setNombre('');
+      setDescripcion('');
+      setEmpresa('');
+      setProvincia('');
      
     })
     .catch(function (error) {
       // handle error
       console.log(error);
+      store.addNotification({
+        title: "Error al crear la ruta",
+        message: error.message,
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
     })
   }
 

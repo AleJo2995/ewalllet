@@ -23,7 +23,33 @@ import axios from "axios";
 function Dashboard(props) {
 
   useEffect(() => {
-    getUserInfo()
+    getUserInfo();
+    getRoutes();
+    setRoutesColumns([
+      {
+        name: "nombre",
+        label:"Nombre",
+        options: {
+         filter: true,
+         sort: false
+        }
+      },
+      {
+        name: "descripcion",
+        label:"Descripcion",
+        options: {
+         filter: true,
+         sort: false
+        }
+      },
+      {
+          name: "costo",
+          label:"Costo",
+          options: {
+           filter: true,
+           sort: false
+          }
+      }]);
   }, []);
 
   const { SERVER_URL } = config;
@@ -37,6 +63,8 @@ function Dashboard(props) {
   const [showSuccess, setSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errors, setErrors] = useState({}); 
+  const [rutas, setRutas] = useState('');
+  const [routesColumns, setRoutesColumns] = useState([]);
 
   const getUserInfo = () => {
     const userData = JSON.parse(localStorage.getItem('user'));
@@ -58,6 +86,32 @@ function Dashboard(props) {
     })
   }
 
+const getRoutes = () => {
+  axios.get(SERVER_URL + '/routes/getAll')
+  .then((response) => {
+    // handling success
+    setRutas(response.data);
+   
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+    store.addNotification({
+      title: "Error al traer las rutas",
+      message: error.message,
+      type: "danger",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true
+      }
+    });
+  })
+}
+
   const data = [
     ["Joe James", "Test Corp", "Yonkers", "NY"],
     ["John Walsh", "Test Corp", "Hartford", "CT"],
@@ -66,10 +120,10 @@ function Dashboard(props) {
    ];
 
    const columns = ["Name", "Company", "City", "State"];
-
    
 const options = {
   filterType: 'checkbox',
+  rowsPerPage:5
 };
 
 const handleValidation = () => {
@@ -156,7 +210,7 @@ const updateWalletBalance = (event) => {
                 >
                   <h5>Datos Generales</h5>
                   <hr/>
-                  <h1>₡ {saldo}</h1>
+                  <h1>₡ {saldo !== null || saldo !== undefined ? saldo : '-'}</h1>
                   <h6>Saldo disponible en su monedero</h6>
                 </div>
                 <hr></hr>
@@ -167,10 +221,10 @@ const updateWalletBalance = (event) => {
               </Card.Body>
             </Card>
           </Col>
-          <Col md="8">
+          <Col md="5">
             <Card>
               <Card.Header>
-                <Card.Title as="h4">Rutas utilizadas recientemente</Card.Title>
+                <Card.Title as="h4">Rutas utilizadas recientemente por {user.nombre}</Card.Title>
               </Card.Header>
               <Card.Body>
               <MUIDataTable
@@ -179,6 +233,21 @@ const updateWalletBalance = (event) => {
                 columns={columns}
                 options={options}
               />
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md="4">
+            <Card>
+              <Card.Header>
+                <Card.Title as="h4">Rutas disponibles</Card.Title>
+              </Card.Header>
+              <Card.Body>
+              <MUIDataTable
+                  title={"Rutas disponibles"}
+                  data={data}
+                  columns={columns}
+                  options={options}
+                />
               </Card.Body>
             </Card>
           </Col>

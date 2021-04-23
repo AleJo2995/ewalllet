@@ -30,6 +30,7 @@ import SignUp from "views/SignUp.js";
 import Login from "views/Login.js";
 import AgregarChofer from "views/AgregarChofer.js";
 import AgregarRuta from "views/AgregarRuta.js";
+import AdminConsole from "views/AdminConsole.js";
 
 const dashboardRoutes = [
 
@@ -75,7 +76,13 @@ const dashboardRoutes = [
     component: TableList2,
     layout: "/admin",
   },
-  
+  {
+    path: "/adminConsole",
+    name: "Consola Administrativa",
+    icon: "nc-icon nc-tablet-2",
+    component: AdminConsole,
+    layout: "/admin",
+  },  
   {
     path: "/maps",
     name: "Mapas",

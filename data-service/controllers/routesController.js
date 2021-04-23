@@ -6,9 +6,13 @@ const createRoute = async(req, res, next) => {
     try {
         const newRoute = req.body;
         const routeCreated = await routesData.createRoute(newRoute);
-        res.send(routeCreated);
+        if(typeof routeCreated === 'string'){
+            res.status(500).send("Error al crear la ruta: " + routeCreated);
+        } else {
+            res.send(routeCreated);
+        }
     } catch(error) {
-        res.status(400).send(error.message);
+        res.status(500).send(error.message);
     }
 }
 

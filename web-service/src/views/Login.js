@@ -57,7 +57,7 @@ function Login(props) {
       console.log(error);
       store.addNotification({
         title: "El usuario no es válido, las credenciales no parecen coincidir",
-        message: "Ya puede inciar con sus gestiones",
+        message: "Revise sus credenciales e intente de nuevo",
         type: "danger",
         insert: "top",
         container: "top-right",
