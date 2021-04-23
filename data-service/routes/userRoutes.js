@@ -5,7 +5,7 @@ const router = express.Router();
 const userController = require('../controllers/usersController');
 
 const {getUsers, getUserById, createUser, validateUserExists, createRole,
-    changeRoleName, addRolesToUser} = userController
+    changeRoleName, addRolesToUser, usersDrivers} = userController
 
 
 router.get('/users', getUsers);
@@ -15,6 +15,7 @@ router.post('/users/validateUser', validateUserExists);
 router.post('/users/createRole', createRole);
 router.patch('/users/changeRoleName', changeRoleName);
 router.post('/users/addRolesPerUser', addRolesToUser);
+router.get('/drivers', usersDrivers);
 
 module.exports = {
     routes: router

@@ -108,6 +108,15 @@ const addRolesToUser = async(req, res, next) => {
     }
 }
 
+const usersDrivers = async(req, res, next) => {
+    try {
+        const users = await userData.getUserDrivers();
+        res.send(users);
+    } catch(error) {
+        res.status(400).send(error.message);
+    }
+}
+
 
 
 module.exports = {
@@ -117,5 +126,6 @@ module.exports = {
     validateUserExists,
     createRole,
     changeRoleName,
-    addRolesToUser
+    addRolesToUser,
+    usersDrivers
 }

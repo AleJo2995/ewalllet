@@ -65,6 +65,8 @@ function Dashboard(props) {
   const [errors, setErrors] = useState({}); 
   const [rutas, setRutas] = useState('');
   const [routesColumns, setRoutesColumns] = useState([]);
+  const [routeToAdd, setRouteToAdd] = useState('');
+  const [amount, setAmount] = useState('');
 
   const getUserInfo = () => {
     const userData = JSON.parse(localStorage.getItem('user'));
@@ -85,6 +87,25 @@ function Dashboard(props) {
       console.log(error);
     })
   }
+
+  const createSelectItems = (values) => {
+    let items = [];    
+    values.forEach((element, i) => {
+        items.push(<option key={i} value={element.nombre}>{element.nombre}</option>);  
+    });   
+    return items;
+  }
+
+
+ const retrieveAmount = (event) => {
+  event.preventDefault();
+  setRouteToAdd(event.target.value);
+  const route = rutas.filter(ruta => ruta.nombre === event.target.value)[0];
+  setAmount(route.costo)
+  console.log('On change works')
+ }
+
+
 
 const getRoutes = () => {
   axios.get(SERVER_URL + '/routes/getAll')
@@ -110,6 +131,64 @@ const getRoutes = () => {
       }
     });
   })
+}
+
+const executePayment = () => {
+  if(saldo <= amount) {
+    store.addNotification({
+      title: "Su monedero no cuenta con saldo suficiente",
+      message: "Dríjase al módulo de recarga para recargar el monedero",
+      type: "danger",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true
+      }
+    });
+  } else {
+    const payment = {
+      walletId: walletId,
+      amount:amount
+    };
+    axios.post(SERVER_URL + '/payments/payRoute', payment)
+    .then((data) => {
+      // handling success
+      store.addNotification({
+        title: "Ruta: " + routeToAdd + " pagada satisfactoriamente",
+        message: "Puede continuar con sus gestiones",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+      getUserInfo();
+    })
+    .catch(function (error) {
+      // handle error
+      store.addNotification({
+        title: "Ocurrió un error al intentar pagar la ruta ",
+        message: error.message,
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+    })
+  }
+  
 }
 
   const data = [
@@ -261,35 +340,41 @@ const updateWalletBalance = (event) => {
               <Card.Body>
               <Tabs defaultActiveKey="home">
                 <Tab eventKey="home" title="Pagar Ruta">
-                    {/* <Form>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Nombre</Form.Label>
-                            <Form.Control type="input" placeholder="Inserte nombre" name="nameOfBuffet" value={nameOfBuffet} onChange={ (e) => this.handleChange(e) } />
-                        </Form.Group>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Precio</Form.Label>
-                            <Form.Control type="input" placeholder="Inserte precio" name="price" value={price} onChange={ (e) => this.handleChange(e) } />
-                        </Form.Group>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Tipo de comida</Form.Label>
-                            <Form.Control as="select" placeholder="Elija tipo de comida" name="type" value={type} onChange={ (e) => this.handleChange(e) }>
-                                <option>Italiana</option>.
-                                <option>Marina</option>
-                                <option>Mexicana</option>
-                                <option>Japonesa</option>
-                                <option>Mediterránea</option>
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Unidad de medida</Form.Label>
-                            <Form.Control as="select" placeholder="Elija unidad de medida" name="unitOfMeasure" value={unitOfMeasure} onChange={ (e) => this.handleChange(e) }>
-                                {this.createSelectItems()}
-                            </Form.Control>
-                        </Form.Group>
-                        <Button variant="primary" onClick={() => this.createBuffet()}>
-                            Crear
-                        </Button>
-                    </Form> */}
+                <Form style={{paddingTop : '15px'}}>
+                  <Row>
+                    <Col className="pr-1" md="6">
+                      <Form.Group>
+                        <label>Ruta</label>
+                        <Form.Control as="select" placeholder="Elija ruta" name="ruta" value={routeToAdd} onChange={ (e) => retrieveAmount(e) }>
+                            {rutas ? createSelectItems(rutas) : null}
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="px-1" md="6">
+                      <Form.Group>
+                        <label>Monto</label>
+                        <Form.Control
+                          placeholder="Monto"
+                          type="number"
+                          value={amount}
+                          onChange={(e) => setAmount(e.target.value)}
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+
+                  </Row>
+                 
+                  <Button
+                    className="btn-fill pull-right"
+                    variant="success"
+                    onClick={() => executePayment()} 
+                  >
+                    Pagar
+                  </Button>
+                  <div className="clearfix"></div>
+                </Form>
                 </Tab>
                 <Tab eventKey="profile" title="Recargar Saldo">
                   <Form style={{paddingTop : '15px'}}>
@@ -347,7 +432,7 @@ const updateWalletBalance = (event) => {
                           <label>Saldo a Recargar</label>
                           <Form.Control
                             placeholder="Monto"
-                            type="text"
+                            type="number"
                             value={newBalance}
                             onChange={(e) => setNewBalance(e.target.value)}
                           ></Form.Control>

@@ -15,6 +15,17 @@ const getUsers = async () => {
     }
 }
 
+const getUserDrivers = async () => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('user');
+        const users = await pool.request().query(sqlQueries.retrieveUsersDrivers);
+        return users.recordset;
+    } catch (error){
+        return error.message;
+    }
+}
+
 const getUserById = async (userId) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -136,5 +147,6 @@ module.exports = {
     changeRoleName,
     addRolesToUser,
     retrieveRoleIdByName,
-    getRolesByUserId
+    getRolesByUserId,
+    getUserDrivers
 }

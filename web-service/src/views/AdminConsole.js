@@ -130,6 +130,55 @@ const createSelectItems = (values) => {
 }
 
 
+
+const addRouteToDriver = (event) => {
+  event.preventDefault();
+  const routeCode = routesToLoad.filter(route => route.nombre === routeToAdd)[0].codigo;
+  let finalRoute = [];
+  finalRoute.push(routeCode);
+  const actualDriver = choferesToLoad.filter(chofer => chofer.nombre === choferToAdd)[0];
+  const newRouteToDriver = {
+    cedula: actualDriver.cedula,
+    rutas:finalRoute,
+  };
+  axios.post(SERVER_URL + '/routes/addRoutesToDriver', newRouteToDriver)
+  .then((data) => {
+    // handling success
+    store.addNotification({
+      title: "Ruta añadida a chofer satisfactoriamente",
+      message: "Puede continuar con sus gestiones",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true
+      }
+    });
+
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+    store.addNotification({
+      title: "Hubo un error agregando la ruta al chofer",
+      message: error.message,
+      type: "danger",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true
+      }
+    });
+  })
+}
+
+
 const createDriver = (event) => {
   event.preventDefault();
   const newUser = {
@@ -310,7 +359,7 @@ const options = {
   }
 
   const loadChoferes = () => {
-    axios.get(SERVER_URL + '/users')
+    axios.get(SERVER_URL + '/drivers')
     .then((response) => {
       // handling success
       setchoferesToLoad(response.data);
@@ -379,7 +428,7 @@ const options = {
               <Card.Body>
               <Tabs defaultActiveKey="home">
                 <Tab eventKey="home" title="Agregar rutas">
-                      <Form>
+                      <Form style={{paddingTop : '15px'}}>
                         <Row>
                           <Col className="pr-1" md="6">
                             <Form.Group>
@@ -465,7 +514,7 @@ const options = {
                       </Form>
                 </Tab>
                 <Tab eventKey="profile" title="Añadir chofer">
-                <Form>
+                <Form style={{paddingTop : '15px'}}>
                   <Row>
                     <Col className="pr-1" md="6">
                       <Form.Group>
@@ -560,7 +609,7 @@ const options = {
                 </Form>
                 </Tab>
                 <Tab eventKey="choferARuta" title="Añadir ruta a  chofer">
-                <Form>
+                <Form style={{paddingTop : '15px'}}>
                   <Row>
                     <Col className="pr-1" md="6">
                       <Form.Group>
@@ -583,8 +632,7 @@ const options = {
                     className="btn-fill pull-right"
                     type="submit"
                     variant="info"
-                    onClick={createDriver} 
-
+                    onClick={addRouteToDriver} 
                   >
                     Añadir Chofer a Ruta
                   </Button>
