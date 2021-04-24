@@ -52,6 +52,19 @@ const getRolesByUserId = async (userId) => {
     }
 }
 
+const getConsumedRoutesByUser = async (cedula) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('user');
+        const user = await pool.request()
+                    .input('cedula', sql.Int, cedula)
+                    .query(sqlQueries.getUserRoutes);
+        return user.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 const createUser = async (userData) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -79,6 +92,21 @@ const createRole = async (userData) => {
         const newUser = await pool.request()
                     .input('nombre', sql.NVarChar, userData.nombre)
                     .query(sqlQueries.insertRol);
+        return newUser.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const logConsumedRoutesByUser = async (userData) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('user');
+        const newUser = await pool.request()
+                    .input('codigoRuta', sql.NVarChar, userData.codigoRuta)
+                    .input('cedula', sql.NVarChar, userData.cedula)
+                    .input('fechaDeUso', sql.DateTime, new Date())
+                    .query(sqlQueries.logConsumedRoute);
         return newUser.recordset;
     } catch (error) {
         return error.message;
@@ -148,5 +176,7 @@ module.exports = {
     addRolesToUser,
     retrieveRoleIdByName,
     getRolesByUserId,
-    getUserDrivers
+    getUserDrivers,
+    logConsumedRoutesByUser,
+    getConsumedRoutesByUser
 }

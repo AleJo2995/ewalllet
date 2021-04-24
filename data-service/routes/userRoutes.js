@@ -2,16 +2,17 @@
 
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/usersController');
+const userController = require('../controllers/usersController.js');
 
 const {getUsers, getUserById, createUser, validateUserExists, createRole,
-    changeRoleName, addRolesToUser, usersDrivers} = userController
+    changeRoleName, addRolesToUser, usersDrivers, getConsumedRoutesByUser, logConsumedRoutesByUser } = userController
 
 
 router.get('/users', getUsers);
 router.get('/users/:id', getUserById);
 router.post('/users/create', createUser);
-// router.get('/users/routes', getConsumedRoutesByUser);
+router.get('/users/routes/:cedula', getConsumedRoutesByUser);
+router.post('/users/routes/create', logConsumedRoutesByUser);
 router.post('/users/validateUser', validateUserExists);
 router.post('/users/createRole', createRole);
 router.patch('/users/changeRoleName', changeRoleName);

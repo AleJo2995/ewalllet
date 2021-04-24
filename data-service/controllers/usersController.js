@@ -43,7 +43,7 @@ const validateUserExists = async(req, res, next) => {
             });
             res.status(200).send(finalUser);
         } else {
-            res.status(500);
+            res.status(500).send(finalUser);
         }
     } catch(error) {
         res.status(500).send(error.message);
@@ -117,6 +117,24 @@ const usersDrivers = async(req, res, next) => {
     }
 }
 
+const getConsumedRoutesByUser = async(req, res, next) => {
+    try {
+        const users = await userData.getConsumedRoutesByUser(req.params.cedula);
+        res.send(users);
+    } catch(error) {
+        res.status(500).send(error.message);
+    }
+}
+
+const logConsumedRoutesByUser = async(req, res, next) => {
+    try {
+        const users = await userData.logConsumedRoutesByUser(req.body);
+        res.send(users);
+    } catch(error) {
+        res.status(400).send(error.message);
+    }
+}
+
 module.exports = {
     getUsers,
     getUserById,
@@ -125,5 +143,7 @@ module.exports = {
     createRole,
     changeRoleName,
     addRolesToUser,
-    usersDrivers
+    usersDrivers,
+    getConsumedRoutesByUser,
+    logConsumedRoutesByUser
 }

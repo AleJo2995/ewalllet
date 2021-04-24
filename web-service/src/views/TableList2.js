@@ -23,6 +23,14 @@ function TableList2() {
     getRoutes();
     setRoutesColumns([
       {
+        name: "cedual",
+        label:"Cedula",
+        options: {
+         filter: true,
+         sort: false
+        }
+      },
+      {
         name: "nombre",
         label:"Nombre",
         options: {
@@ -31,21 +39,37 @@ function TableList2() {
         }
       },
       {
-        name: "descripcion",
-        label:"Descripcion",
+        name: "codigo_ruta",
+        label:"Código de Ruta",
         options: {
          filter: true,
          sort: false
         }
       },
       {
-          name: "costo",
-          label:"Costo",
+          name: "nombreRuta",
+          label:"Nombre de Ruta",
           options: {
            filter: true,
            sort: false
           }
-      }]);
+      },
+      {
+        name: "costo",
+        label:"Costo",
+        options: {
+         filter: true,
+         sort: false
+        }
+      },
+      {
+        name: "fecha_de_uso",
+        label:"Fecha de uso",
+        options: {
+         filter: true,
+         sort: false
+        }
+    }]);
   }, []);
 
   const { SERVER_URL } = config;
@@ -70,13 +94,14 @@ function TableList2() {
   };
 
   const getRoutes = () => {
-    axios.get(SERVER_URL + '/routes/getAll')
+    const userData = JSON.parse(localStorage.getItem('user'));
+    setUserData(userData);
+    axios.get(SERVER_URL + '/users/routes/' + userData.cedula) ///users/routes /routes/getAll
     .then((response) => {
       // handling success
       setRutas(response.data);
       const userData = JSON.parse(localStorage.getItem('user'));
-    setUserData(userData);
-     
+      setUserData(userData);
     })
     .catch(function (error) {
       // handle error
@@ -110,7 +135,7 @@ function TableList2() {
     <>
       <Container fluid>
         <Row>
-        <Col md="5">
+        <Col md="8">
             <Card>
               <Card.Header>
                 <Card.Title as="h4">Rutas utilizadas recientemente por {user.nombre}</Card.Title>

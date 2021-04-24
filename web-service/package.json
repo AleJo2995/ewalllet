@@ -12,6 +12,7 @@
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
     "material-ui-icons": "^1.0.0-beta.36",
+    "moment": "^2.29.1",
     "mui-datatables": "^3.7.7",
     "node-sass": "4.14.1",
     "react": "17.0.1",

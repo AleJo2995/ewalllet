@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import config from "../config.json";
 import { store } from 'react-notifications-component';
+import moment from 'moment';
 // react-bootstrap components
 import {
   Badge,
@@ -170,6 +171,33 @@ const executePayment = () => {
         }
       });
       getUserInfo();
+      const routeFiltered = rutas.filter(ruta => ruta.nombre === routeToAdd)[0];
+      const routeToLog = {
+        codigoRuta:routeFiltered.codigo,
+        cedula:cedula,
+        fechaDeUso:moment().format('MMMM Do YYYY, h:mm:ss a')
+      }
+      axios.post(SERVER_URL + '/users/routes/create', routeToLog)
+        .then((data) => {
+          // handling success
+          console.log(data);
+        })
+        .catch(function (error) {
+          // handle error
+          store.addNotification({
+            title: "Ocurrió un error al intentar pagar la ruta ",
+            message: error.message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+          });
+        })
     })
     .catch(function (error) {
       // handle error
@@ -299,21 +327,6 @@ const theColumns = ["nombre", "descripcion"];
                   <i className="far fa-clock"></i>
                   Mantenga saldo para evitar inconvenientes
                 </div>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md="5">
-            <Card>
-              <Card.Header>
-                <Card.Title as="h4">Rutas utilizadas recientemente por {user.nombre}</Card.Title>
-              </Card.Header>
-              <Card.Body>
-              <MUIDataTable
-                title={"Rutas Utilizadas"}
-                data={rutas ? rutas : data}
-                columns={routesColumns}
-                options={options}
-              />
               </Card.Body>
             </Card>
           </Col>
