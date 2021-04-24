@@ -1,6 +1,7 @@
 import config from "../config.json";
 import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
+import { store } from 'react-notifications-component';
 
 // react-bootstrap components
 import {
@@ -27,6 +28,10 @@ function SignUp() {
   const [segundoApellido, setSegundoApellido] = useState('');
   const [correo, setCorreo] = useState('');
   const [fechaNacimiento, setFechaNacimiento] = useState('');
+  const [numeroTarjeta, setNumeroTarjeta] = useState('');
+  const [tarjetaHabiente, setTarjetaHabiente] = useState('');
+  const [caducidad, setCaducidad] = useState('');
+  const [cvv, setCvv] = useState('');
   let history = useHistory();  
 
   const signUpUser = () => {
@@ -45,12 +50,82 @@ function SignUp() {
     .then((data) => {
       // handling success
       console.log(data);
-      //redireccionar al login
-      history.push('/login')
+
+        const newWallet = {
+            numeroTarjeta:numeroTarjeta,
+            tarjetaHabiente:tarjetaHabiente,
+            caducidad:caducidad,
+            cvv:cvv,
+            cedula:cedula,
+            saldo:0
+        };
+        axios.post(SERVER_URL + '/payments/create', newWallet)
+          .then((data) => {
+        // handling success
+        console.log(data);
+        //redireccionar al login
+        store.addNotification({
+          title: "Usuario registrado satisfactoriamente",
+          message: "Ya puede continuar con sus gestiones",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          }
+        });
+        store.addNotification({
+          title: "Como usuario se le ha provisionado con un monedero por defecto",
+          message: "Puede continuar con sus gestiones",
+          type: "info",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          }
+        });
+        history.push('/login')
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        store.addNotification({
+          title: "Error al provisionar monedero",
+          message: error.message,
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          }
+        });
+      })
     })
     .catch(function (error) {
       // handle error
       console.log(error);
+      store.addNotification({
+        title: "Error al crear el usuario",
+        message: "Revise de nuevo los campos ingresados",
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
     })
   }
 
@@ -124,7 +199,7 @@ function SignUp() {
                         </label>
                         <Form.Control
                           placeholder="Email"
-                          type="email"
+                          type="mail"
                           onChange={(e) => setCorreo(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
@@ -136,6 +211,46 @@ function SignUp() {
                           placeholder="05-11-1998"
                           type="text"
                           onChange={(e) => setFechaNacimiento(e.target.value)}
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pr-1" md="6">
+                      <Form.Group>
+                        <label>Numero de Tarjeta</label>
+                        <Form.Control
+                          placeholder="numero"
+                          type="number"
+                          onChange={(e) => setNumeroTarjeta(e.target.value)}
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pr-1" md="6">
+                      <Form.Group>
+                        <label>Nombre Tarjeta Habiente</label>
+                        <Form.Control
+                          placeholder="tarjeta habiente"
+                          type="text"
+                          onChange={(e) => setTarjetaHabiente(e.target.value)}
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pr-1" md="6">
+                      <Form.Group>
+                        <label>Caducidad</label>
+                        <Form.Control
+                          placeholder="caducidad"
+                          type="text"
+                          onChange={(e) => setCaducidad(e.target.value)}
+                        ></Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col className="pr-1" md="6">
+                      <Form.Group>
+                        <label>CVV</label>
+                        <Form.Control
+                          placeholder="cvv"
+                          type="text"
+                          onChange={(e) => setCvv(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>

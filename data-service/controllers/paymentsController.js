@@ -46,8 +46,18 @@ const getWalletByUserId = async(req, res, next) => {
     }
 }
 
+const createWallet = async(req, res, next) => {
+    try {
+        const wallet = await paymentsData.createWallet(req.body);
+        res.send(wallet);
+    } catch(error) {
+        res.status(500).send(error.message);
+    }
+}
+
 module.exports = {
     executePayment,
     increaseWalletBalance,
-    getWalletByUserId
+    getWalletByUserId,
+    createWallet
 }
