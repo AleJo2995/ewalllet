@@ -42,13 +42,6 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/user",
-    name: "Datos de Usuario",
-    icon: "nc-icon nc-circle-09",
-    component: UserProfile,
-    layout: "/admin",
-  },
-  {
     path: "/table",
     name: "Reportes Chofer",
     icon: "nc-icon nc-notes",

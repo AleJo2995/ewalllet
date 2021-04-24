@@ -172,7 +172,7 @@ const createDriver = (event) => {
   const newUser = {
     cedula: cedula,
     password:password,
-    nombre:nombre,
+    nombre:nombreChofer,
     primerApellido:primerApellido,
     segundoApellido:segundoApellido,
     correo:correo,
@@ -217,6 +217,7 @@ const createDriver = (event) => {
             onScreen: true
           }
         });
+        loadChoferes();
         setCedula('');
         setPassword('');
         setNombreChofer('');

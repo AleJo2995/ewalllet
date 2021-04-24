@@ -117,8 +117,6 @@ const usersDrivers = async(req, res, next) => {
     }
 }
 
-
-
 module.exports = {
     getUsers,
     getUserById,
