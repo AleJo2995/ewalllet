@@ -273,6 +273,8 @@ const updateWalletBalance = (event) => {
   }
 }
 
+const theColumns = ["nombre", "descripcion"];
+
   return (
     <>
       <Container fluid>
@@ -308,8 +310,8 @@ const updateWalletBalance = (event) => {
               <Card.Body>
               <MUIDataTable
                 title={"Rutas Utilizadas"}
-                data={data}
-                columns={columns}
+                data={rutas ? rutas : data}
+                columns={routesColumns}
                 options={options}
               />
               </Card.Body>
@@ -323,8 +325,8 @@ const updateWalletBalance = (event) => {
               <Card.Body>
               <MUIDataTable
                   title={"Rutas disponibles"}
-                  data={data}
-                  columns={columns}
+                  data={rutas ? rutas : data}
+                  columns={routesColumns}
                   options={options}
                 />
               </Card.Body>
@@ -356,6 +358,7 @@ const updateWalletBalance = (event) => {
                         <Form.Control
                           placeholder="Monto"
                           type="number"
+                          disabled={true}
                           value={amount}
                           onChange={(e) => setAmount(e.target.value)}
                         ></Form.Control>

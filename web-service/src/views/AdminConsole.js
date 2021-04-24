@@ -72,30 +72,6 @@ function AdminConsole() {
 
 const driversColumns = [
   {
-      name: "codigo",
-      label:"Código",
-      options: {
-       filter: true,
-       sort: false
-      }
-  },
-  {
-      name: "costo",
-      label:"Costo",
-      options: {
-       filter: true,
-       sort: false
-      }
-  },
-  {
-      name: "descripcion",
-      label:"Descripcion",
-      options: {
-       filter: true,
-       sort: false
-      }
-  },
-  {
       name: "nombre",
       label:"Nombre",
       options: {
@@ -104,21 +80,35 @@ const driversColumns = [
       }
   },
   {
-      name: "empresa",
-      label:"Empresa",
+      name: "primer_apellido",
+      label:"Primer Apellido",
       options: {
        filter: true,
        sort: false
       }
   },
   {
-    name: "provincia",
-    label:"Provincia",
-    options: {
-     filter: true,
-     sort: false
-    }
-}
+      name: "segundo_apellido",
+      label:"Segundo Apellido",
+      options: {
+       filter: true,
+       sort: false
+      }
+  },
+  {
+      name: "activo",
+      label:"Activo",
+      options: {
+       filter: true,
+       sort: false,
+       customBodyRender: (value, tableMeta, updateValue) => (
+        <div>
+            <Form.Control disabled={true}  type="checkbox" name="activo" checked={value} value={value}/>
+        </div>
+        
+      ),
+      }
+  }
 ];
 
 const createSelectItems = (values) => {
@@ -128,8 +118,6 @@ const createSelectItems = (values) => {
   });   
   return items;
 }
-
-
 
 const addRouteToDriver = (event) => {
   event.preventDefault();
@@ -310,7 +298,7 @@ const options = {
       setDescripcion('');
       setEmpresa('');
       setProvincia('');
-     
+      getRoutes();
     })
     .catch(function (error) {
       // handle error
@@ -383,6 +371,15 @@ const options = {
     })
   }
 
+  const data = [
+    ["Joe James", "Test Corp", "Yonkers", "NY"],
+    ["John Walsh", "Test Corp", "Hartford", "CT"],
+    ["Bob Herm", "Test Corp", "Tampa", "FL"],
+    ["James Houston", "Test Corp", "Dallas", "TX"],
+   ];
+
+   const columns = ["Name", "Company", "City", "State"];
+
   
   return (
     <>
@@ -394,12 +391,12 @@ const options = {
                   <Card.Title as="h4">Rutas</Card.Title>
                 </Card.Header>
                 <Card.Body>
-                {/* <MUIDataTable
+                <MUIDataTable
                   title={"Rutas Utilizadas"}
-                  data={data}
+                  data={rutas ? rutas : data}
                   columns={routesColumns}
                   options={options}
-                /> */}
+                />
                 </Card.Body>
               </Card>
             </Col>
@@ -409,12 +406,12 @@ const options = {
                   <Card.Title as="h4">Choferes</Card.Title>
                 </Card.Header>
                 <Card.Body>
-                {/* <MUIDataTable
+                <MUIDataTable
                   title={"Choferes disponibles"}
-                  data={rutas}
+                  data={choferesToLoad ? choferesToLoad : data }
                   columns={driversColumns}
                   options={options}
-                /> */}
+                />
                 </Card.Body>
               </Card>
             </Col>

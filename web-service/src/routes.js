@@ -49,20 +49,6 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/recarga",
-    name: "Recarga",
-    icon: "nc-icon nc-money-coins",
-    component: UserCharge,
-    layout: "/admin",
-  },
-  {
-    path: "/pagarruta",
-    name: "Pagar Ruta",
-    icon: "nc-icon nc-money-coins",
-    component: PagarRuta,
-    layout: "/admin",
-  },
-  {
     path: "/table",
     name: "Reportes Chofer",
     icon: "nc-icon nc-notes",
@@ -78,34 +64,11 @@ const dashboardRoutes = [
   },
   {
     path: "/adminConsole",
-    name: "Consola Administrativa",
+    name: "Administración",
     icon: "nc-icon nc-tablet-2",
     component: AdminConsole,
     layout: "/admin",
-  },  
-  {
-    path: "/maps",
-    name: "Mapas",
-    icon: "nc-icon nc-pin-3",
-    component: Maps,
-    layout: "/admin",
   },
-  {
-    path: "/agregarchofer",
-    name: "Agregar Chofer",
-    icon: "nc-icon nc-notes",
-    component: AgregarChofer,
-    layout: "/admin",
-  },
-
-  {
-    path: "/AgregarRuta",
-    name: "Agregar Ruta",
-    icon: "nc-icon nc-notes",
-    component: AgregarRuta,
-    layout: "/admin",
-  },
-
 ];
 
 export default dashboardRoutes;
